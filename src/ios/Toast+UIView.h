@@ -18,4 +18,7 @@
 - (void)showToast:(UIView *)toast;
 - (void)showToast:(UIView *)toast duration:(NSTimeInterval)interval position:(id)point;
 
+// set toast alert top and bottom offset
+- (void)setTopBottomOffset:(CGFloat)offset;
+
 @end

@@ -29,6 +29,10 @@ Toast.prototype.showLongBottom = function (message, successCallback, errorCallba
   this.show(message, "long", "bottom", successCallback, errorCallback);
 };
 
+Toast.prototype.setTopBottomOffset = function (offset) {
+  cordova.exec(null, null, "Toast", "setTopBottomOffset", [offset]);
+};
+
 Toast.install = function () {
   if (!window.plugins) {
     window.plugins = {};

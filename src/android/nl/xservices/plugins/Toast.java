@@ -9,11 +9,12 @@ import org.json.JSONException;
 public class Toast extends CordovaPlugin {
 
   private static final String ACTION_SHOW_EVENT = "show";
+  private static final String ACTION_SET_TOP_BOTTOM_OFFSET = "setTopBottomOffset";
+  int yOffset = 20;
 
   @Override
   public boolean execute(String action, JSONArray args, final CallbackContext callbackContext) throws JSONException {
     if (ACTION_SHOW_EVENT.equals(action)) {
-
       final String message = args.getString(0);
       final String duration = args.getString(1);
       final String position = args.getString(2);
@@ -23,9 +24,9 @@ public class Toast extends CordovaPlugin {
           android.widget.Toast toast = android.widget.Toast.makeText(webView.getContext(), message, 0);
 
           if ("top".equals(position)) {
-            toast.setGravity(Gravity.TOP|Gravity.CENTER_HORIZONTAL, 0, 20);
+            toast.setGravity(Gravity.TOP|Gravity.CENTER_HORIZONTAL, 0, yOffset);
           } else  if ("bottom".equals(position)) {
-            toast.setGravity(Gravity.BOTTOM|Gravity.CENTER_HORIZONTAL, 0, 20);
+            toast.setGravity(Gravity.BOTTOM|Gravity.CENTER_HORIZONTAL, 0, yOffset);
           } else if ("center".equals(position)) {
             toast.setGravity(Gravity.CENTER_VERTICAL|Gravity.CENTER_HORIZONTAL, 0, 0);
           } else {
@@ -47,6 +48,9 @@ public class Toast extends CordovaPlugin {
         }
       });
 
+      return true;
+    } else if (ACTION_SET_TOP_BOTTOM_OFFSET.equals(action)) {
+      yOffset = args.getInt(0);
       return true;
     } else {
       callbackContext.error("toast." + action + " is not a supported function. Did you mean '" + ACTION_SHOW_EVENT + "'?");

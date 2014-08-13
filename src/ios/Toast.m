@@ -28,9 +28,14 @@
   }
 
   [self.webView makeToast:message duration:durationInt position:position];
-    
+
   CDVPluginResult* pluginResult = [CDVPluginResult resultWithStatus:CDVCommandStatus_OK];
   [self writeJavascript:[pluginResult toSuccessCallbackString:command.callbackId]];
+}
+
+- (void)setTopBottomOffset:(CDVInvokedUrlCommand*)command {
+    CGFloat offset = (CGFloat)[[command.arguments objectAtIndex:0] doubleValue];
+    [self.webView setTopBottomOffset:offset];
 }
 
 @end
